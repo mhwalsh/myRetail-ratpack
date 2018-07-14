@@ -14,7 +14,7 @@ class ProductResource extends GroovyChainAction {
         path('/:id?') {
             byMethod {
                 get {
-                    productHttpService.get().then { response ->
+                    productHttpService.get(pathTokens.get('id')).then { response ->
                         context.render(response.getBody().getText())
                     }
                 }

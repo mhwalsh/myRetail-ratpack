@@ -5,7 +5,6 @@ import services.ProductHttpService
 
 import static ratpack.groovy.Groovy.ratpack
 
-
 ratpack {
 
     bindings {
