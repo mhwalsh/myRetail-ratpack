@@ -4,6 +4,8 @@ buildscript {
     }
     dependencies {
         classpath "io.ratpack:ratpack-gradle:1.5.4"
+        classpath "com.google.inject:guice:4.2.0"
+        classpath "com.fasterxml.jackson.core:jackson-core:2.9.0"
     }
 }
 
