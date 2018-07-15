@@ -1,13 +1,16 @@
 package resources
 
+import collections.ProductCollection
 import com.google.inject.Inject
 import ratpack.groovy.handling.GroovyChainAction
 import services.ProductHttpService
-import ratpack.jackson.Jackson
 
 class ProductResource extends GroovyChainAction {
     @Inject
     ProductHttpService productHttpService
+
+    @Inject
+    ProductCollection productCollection
 
     @Override
     void execute() throws Exception {
@@ -20,6 +23,12 @@ class ProductResource extends GroovyChainAction {
                 }
             }
         }
-
+        path('/all') {
+            byMethod {
+                get {
+                    render 'nothing'
+                }
+            }
+        }
     }
 }

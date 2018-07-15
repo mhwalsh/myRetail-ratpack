@@ -1,7 +1,5 @@
-import com.google.inject.Inject
 import modules.ProductModule
 import resources.ProductResource
-import services.ProductHttpService
 
 import static ratpack.groovy.Groovy.ratpack
 

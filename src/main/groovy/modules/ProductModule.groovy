@@ -1,5 +1,6 @@
 package modules
 
+import collections.ProductCollection
 import com.google.inject.AbstractModule
 import com.google.inject.Scopes
 import resources.ProductResource
@@ -9,5 +10,6 @@ class ProductModule extends AbstractModule {
     protected void configure() {
         bind(ProductResource).in(Scopes.SINGLETON)
         bind(ProductHttpService).in(Scopes.SINGLETON)
+        bind(ProductCollection).in(Scopes.SINGLETON)
     }
 }

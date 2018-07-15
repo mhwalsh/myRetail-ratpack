@@ -8,7 +8,7 @@ import ratpack.http.client.ReceivedResponse
 class ProductHttpService {
     private HttpClient httpClient
     private String uri = "https://redsky.target.com/v2/pdp/tcin/"
-    
+
     @Inject
     ProductHttpService(HttpClient httpClient) {
         this.httpClient = httpClient
