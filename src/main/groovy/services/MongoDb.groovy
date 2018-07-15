@@ -12,9 +12,8 @@ class MongoDb {
         this.mongo.getDB('productDb')
     }
 
-    List<Product> getProduct(String id) {
-        getProductDB().products.find(productId: id).toList().collect {
-            new Product(productId: it.productId, name: null, price: it.price, currencyCode: it.currencyCode)
-        }
+    Product getProduct(String id) {
+        Map prodMap = getProductDB().products.findOne(productId: id).toMap()
+        new Product(productId: prodMap.productId, name: null, price: prodMap.price, currencyCode: prodMap.currencyCode)
     }
 }

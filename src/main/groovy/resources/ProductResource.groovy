@@ -31,8 +31,7 @@ class ProductResource extends GroovyChainAction {
                 get {
                     String productId = pathTokens.get('id')
                     productHttpService.getProductName(productId).then { name ->
-                        List<Product> products = mongoDb.getProduct(productId)
-                        Product product = products.get(0)
+                        Product product = mongoDb.getProduct(productId)
                         product.putAt("name", name)
                         context.render(json(product))
                     }
