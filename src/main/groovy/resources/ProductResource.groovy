@@ -30,9 +30,7 @@ class ProductResource extends GroovyChainAction {
             byMethod {
                 get {
                     Blocking.get {
-                        mongoDb.getProductDB().products.find().collect {
-                            [it.price, it.currencyCode]
-                        }
+                        productDao.getProduct("53786122")
                     } then {
                         render(json(it))
                     }
