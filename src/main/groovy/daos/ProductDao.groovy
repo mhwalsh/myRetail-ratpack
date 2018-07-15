@@ -15,14 +15,10 @@ class ProductDao {
     MongoDb mongoDb
 
     List<Product> getProduct(String id) {
-        //call db
-        mongoDb.getProductDB()?.products?.find(productId: id)?.collect {
-            new Product(productId: it.productId, name: null, price: it.price, currencyCode: it.currencyCode)
+        productHttpService.get(id).flatMap { httpResponse ->
+            mongoDb.getProductDB()?.products?.find(productId: id)?.collect {
+                new Product(productId: it.productId, name: httpResponse.getBody(), price: it.price, currencyCode: it.currencyCode)
+            }
         }
-
-        //call redsky
-        // combine
-        //return
     }
-
 }
