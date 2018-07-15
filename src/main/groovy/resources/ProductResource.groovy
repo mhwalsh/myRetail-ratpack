@@ -9,7 +9,9 @@ import ratpack.groovy.handling.GroovyChainAction
 import services.ProductHttpService
 import static ratpack.jackson.Jackson.json
 
-
+/**
+ * ProductResource http entry point for the myRetail service
+ */
 class ProductResource extends GroovyChainAction {
     @Inject
     ProductHttpService productHttpService
@@ -22,6 +24,7 @@ class ProductResource extends GroovyChainAction {
 
     @Override
     void execute() throws Exception {
+        // get product by product id
         path(':id?') {
             byMethod {
                 get {

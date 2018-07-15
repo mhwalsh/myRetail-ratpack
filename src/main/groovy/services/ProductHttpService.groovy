@@ -4,8 +4,10 @@ import com.google.inject.Inject
 import groovy.json.JsonSlurper
 import ratpack.exec.Promise
 import ratpack.http.client.HttpClient
-import ratpack.http.client.ReceivedResponse
 
+/**
+ * ProductHttpService service to call redsky service to retrieve product data
+ */
 class ProductHttpService {
     private HttpClient httpClient
     private String uri = "https://redsky.target.com/v2/pdp/tcin/"
@@ -15,6 +17,11 @@ class ProductHttpService {
         this.httpClient = httpClient
     }
 
+    /**
+     * Get a product name from redsky by passing a product id
+     * @param productId
+     * @return
+     */
     Promise<Object> getProductName(String productId) {
         httpClient.get(uri.concat("${productId}").toURI()).flatMap { httpResponse ->
             JsonSlurper jsonSlurper = new JsonSlurper()
