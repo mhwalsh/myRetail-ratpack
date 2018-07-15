@@ -2,8 +2,14 @@ package resources
 
 import collections.ProductCollection
 import com.google.inject.Inject
+import com.mongodb.DB
+import daos.ProductDao
+import ratpack.exec.Blocking
 import ratpack.groovy.handling.GroovyChainAction
+import services.MongoDb
 import services.ProductHttpService
+import static ratpack.jackson.Jackson.json
+
 
 class ProductResource extends GroovyChainAction {
     @Inject
@@ -12,9 +18,29 @@ class ProductResource extends GroovyChainAction {
     @Inject
     ProductCollection productCollection
 
+    @Inject
+    ProductDao productDao
+
+    @Inject
+    MongoDb mongoDb
+
     @Override
     void execute() throws Exception {
-        path('/:id?') {
+        path('all') {
+            byMethod {
+                get {
+                    Blocking.get {
+                        mongoDb.getProductDB().products.find().collect {
+                            [it.price, it.currencyCode]
+                        }
+                    } then {
+                        render(json(it))
+                    }
+                }
+            }
+        }
+
+        path(':id?') {
             byMethod {
                 get {
                     productHttpService.get(pathTokens.get('id')).then { response ->
@@ -23,12 +49,6 @@ class ProductResource extends GroovyChainAction {
                 }
             }
         }
-        path('/all') {
-            byMethod {
-                get {
-                    render 'nothing'
-                }
-            }
-        }
     }
+
 }
