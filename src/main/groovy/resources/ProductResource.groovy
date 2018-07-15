@@ -29,12 +29,13 @@ class ProductResource extends GroovyChainAction {
 
     @Override
     void execute() throws Exception {
-        path('all') {
+        path(':id?') {
             byMethod {
                 get {
+                    String productId = pathTokens.get('id')
 //                    flatMapError
-                    productHttpService.get("53786122").then { httpResponse ->
-                        List<Product> products = mongoDb.getProduct("53786122")
+                    productHttpService.get(productId).then { httpResponse ->
+                        List<Product> products = mongoDb.getProduct(productId)
                         Product product = products.get(0)
                         def jsonSlurper = new JsonSlurper()
                         product.putAt("name", jsonSlurper.parseText(httpResponse.getBody().getText()).product.item.product_description.title)
@@ -43,15 +44,5 @@ class ProductResource extends GroovyChainAction {
                 }
             }
         }
-        path(':id?') {
-            byMethod {
-                get {
-                    productHttpService.get(pathTokens.get('id')).then { response ->
-                        context.render(response.getBody().getText())
-                    }
-                }
-            }
-        }
     }
-
 }
