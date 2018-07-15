@@ -2,12 +2,9 @@ package resources
 
 import collections.ProductCollection
 import com.google.inject.Inject
-import com.mongodb.DB
 import daos.ProductDao
 import domain.Product
 import groovy.json.JsonSlurper
-import ratpack.exec.Blocking
-import ratpack.exec.Promise
 import ratpack.groovy.handling.GroovyChainAction
 import services.MongoDb
 import services.ProductHttpService
@@ -33,12 +30,10 @@ class ProductResource extends GroovyChainAction {
             byMethod {
                 get {
                     String productId = pathTokens.get('id')
-//                    flatMapError
-                    productHttpService.get(productId).then { httpResponse ->
+                    productHttpService.getProductName(productId).then { name ->
                         List<Product> products = mongoDb.getProduct(productId)
                         Product product = products.get(0)
-                        def jsonSlurper = new JsonSlurper()
-                        product.putAt("name", jsonSlurper.parseText(httpResponse.getBody().getText()).product.item.product_description.title)
+                        product.putAt("name", name)
                         context.render(json(product))
                     }
                 }
