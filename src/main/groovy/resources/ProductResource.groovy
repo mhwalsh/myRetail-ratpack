@@ -2,7 +2,6 @@ package resources
 
 import collections.ProductCollection
 import com.google.inject.Inject
-import daos.ProductDao
 import domain.Product
 import groovy.json.JsonException
 import groovy.json.JsonSlurper
@@ -20,9 +19,6 @@ class ProductResource extends GroovyChainAction {
 
     @Inject
     ProductCollection productCollection
-
-    @Inject
-    ProductDao productDao
 
     @Override
     void execute() throws Exception {
