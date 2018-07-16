@@ -27,4 +27,12 @@ class ProductCollection {
         Map prodMap = getProductDB().products.findOne(productId: id).toMap()
         new Product(productId: prodMap.productId, name: null, price: prodMap.price, currencyCode: prodMap.currencyCode)
     }
+
+    def insertProduct(Map product) {
+        getProductDB().products.insert(product)
+    }
+
+    def dropProducts() {
+        getProductDB().products.drop()
+    }
 }
