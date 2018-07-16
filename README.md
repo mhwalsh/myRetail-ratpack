@@ -8,20 +8,27 @@ To run this project git clone the repository to your local machine and follow th
 
 ### Prerequisites
 
-This project depends on a [mongoDB](https://www.mongodb.com/). Install this database on your local machine and start it. This [guide](https://github.com/mhwalsh/lecture-guides/blob/master/mongo-install.md) walks through the mongoDB install with `brew` and `brew services`. Brew and brew services are not required to install it and get it running, but it makes things very easy to manage. If you don't have brew and word like to use it, find out more [here](https://brew.sh/).
+This project requires:
+- Java & Groovy 
+- Gradle
+- [mongoDB](https://www.mongodb.com/)
+
+##### Mongo
+Install this database on your local machine and start it. This [guide](https://github.com/mhwalsh/lecture-guides/blob/master/mongo-install.md) walks through the mongoDB install with `brew` and `brew services`. Brew and brew services are not required to install it and get it running, but it makes things very easy to manage. If you don't have brew and word like to use it, find out more [here](https://brew.sh/).
+
 
 ### Installing
 
 Run the following command inside the project directory to install project dependencies:
 
 ```
-$ ./gradlew assemble
+$ gradle assemble
 ```
 
 To start the server run:
 
 ```
-$ ./gradlew run
+$ gradle run
 ```
 
 Add some initial test data to the database by running the following command:
@@ -72,7 +79,7 @@ Test the services is working locally by navigating to this this url in your pref
 To run the automated tests for this service locally, run following command in the terminal:
 
 ```
-$ ./gradlew test
+$ gradle test
 ```
 
 ## Authors
