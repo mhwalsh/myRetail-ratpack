@@ -43,8 +43,19 @@ class ProductResource extends GroovyChainAction {
                             }
                         }
                     } else {
-                        context.response.status(400)
-                        context.render(json([message: "product id must be a number"]))
+                        render400BadRequest(context)
+                    }
+                }
+                put {
+                    String productId = pathTokens.get('id').trim()
+                    if (isValidId(productId)) {
+                        context.parse(Product).then { product ->
+                            productCollection.updatePrice(productId, product.price)
+                            context.response.status(200)
+                            context.render(json([message: "update price successfully"]))
+                        }
+                    } else {
+                        render400BadRequest(context)
                     }
                 }
             }
@@ -54,6 +65,11 @@ class ProductResource extends GroovyChainAction {
     static void render404NotFound(Context context) {
         context.response.status(404)
         context.render(json([message: "product not found"]))
+    }
+
+    static void render400BadRequest(Context context) {
+        context.response.status(400)
+        context.render(json([message: "product id must be a number"]))
     }
 
     static Boolean isValidId(String productId) {

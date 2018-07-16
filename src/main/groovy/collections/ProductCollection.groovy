@@ -32,6 +32,10 @@ class ProductCollection {
         }
     }
 
+    def updatePrice(String id, String price) {
+        getProductDB().products.update([productId: id], [$set: [price: price]])
+    }
+
     def insertProduct(Map product) {
         getProductDB().products.insert(product)
     }
