@@ -50,8 +50,6 @@ Test the services is working locally by navigating to this this url in your pref
 │   │   └── groovy
 │   │       ├── collections
 │   │       │   └── ProductCollection.groovy
-│   │       ├── daos
-│   │       │   └── ProductDao.groovy
 │   │       ├── domain
 │   │       │   ├── CurrencyCode.groovy
 │   │       │   └── Product.groovy
@@ -64,13 +62,13 @@ Test the services is working locally by navigating to this this url in your pref
 │   ├── ratpack
 │   │   └── ratpack.groovy
 │   └── test
+│       ├── InitDbSetUp.groovy
 │       └── groovy
 │           ├── functional
 │           │   └── ProductResourceFunctionalSpec.groovy
 │           ├── unit
 │           │   └── ProductResourceSpec.groovy
 │           └── utils
-│               ├── InitDbSetUp.groovy
 │               └── ProductServiceApplicationUnderTest.groovy
 ```
 
