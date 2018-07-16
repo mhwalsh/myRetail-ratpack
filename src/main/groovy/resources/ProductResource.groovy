@@ -50,7 +50,7 @@ class ProductResource extends GroovyChainAction {
                     String productId = pathTokens.get('id').trim()
                     if (isValidId(productId)) {
                         context.parse(Product).then { product ->
-                            productCollection.updatePrice(productId, product.price)
+                            productCollection.updatePrice(productId, product?.price)
                             context.response.status(200)
                             context.render(json([message: "update price successfully"]))
                         }
