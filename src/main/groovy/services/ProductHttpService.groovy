@@ -25,7 +25,7 @@ class ProductHttpService {
     Promise<Object> getProductName(String productId) {
         httpClient.get(uri.concat("${productId}").toURI()).flatMap { httpResponse ->
             JsonSlurper jsonSlurper = new JsonSlurper()
-            Promise.value(jsonSlurper.parseText(httpResponse.getBody().getText()).product.item.product_description.title)
+            Promise.value(jsonSlurper.parseText(httpResponse.body.text).product.item.product_description.title)
         }
     }
 }

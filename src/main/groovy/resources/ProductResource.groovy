@@ -4,6 +4,7 @@ import collections.ProductCollection
 import com.google.inject.Inject
 import daos.ProductDao
 import domain.Product
+import groovy.json.JsonSlurper
 import ratpack.groovy.handling.GroovyChainAction
 
 import services.ProductHttpService
@@ -29,11 +30,17 @@ class ProductResource extends GroovyChainAction {
             byMethod {
                 get {
                     String productId = pathTokens.get('id').trim()
-                    productHttpService.getProductName(productId).then { name ->
-                        Product product = productCollection.getProduct(productId)
-                        product.putAt("name", name)
-                        context.render(json(product))
+                    if (isValidId(productId)) {
+                        productHttpService.getProductName(productId).then { name ->
+                            Product product = productCollection.getProduct(productId)
+                            product.putAt("name", name)
+                            context.render(json(product))
+                        }
+                    } else {
+                        context.response.status(400)
+                        context.render(json([message: "product id must be a number"]))
                     }
+
                 }
             }
         }
