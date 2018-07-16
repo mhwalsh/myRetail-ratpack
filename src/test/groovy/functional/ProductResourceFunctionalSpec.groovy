@@ -80,7 +80,10 @@ class ProductResourceFunctionalSpec extends Specification {
         cleanUpProductDb()
 
         where:
-        description              | requestBody      | productId  | expectedResponse
-        'good request id exists' | [price: '34.56'] | '52474823' | [message: "update price successfully"]
+        description                          | requestBody                            | productId    | expectedResponse
+        'good request id exists'             | [price: '34.56']                       | '52474823'   | [message: "update price successfully"]
+        'non numeric product id'             | [price: '34.56']                       | 'notanumber' | [message: "product id must be a number"]
+        'price not in body'                  | [somethingelse: 'yep']                 | '52474823'   | [message: "body must contain valid product fields"]
+        'price in body & unrecognized value' | [price: '34.56', somethingelse: 'yep'] | '52474823'   | [message: "body must contain valid product fields"]
     }
 }

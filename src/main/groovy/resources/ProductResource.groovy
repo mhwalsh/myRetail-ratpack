@@ -4,6 +4,7 @@ import collections.ProductCollection
 import com.google.inject.Inject
 import daos.ProductDao
 import domain.Product
+import groovy.json.JsonException
 import groovy.json.JsonSlurper
 import ratpack.groovy.handling.GroovyChainAction
 import ratpack.handling.Context
@@ -43,19 +44,21 @@ class ProductResource extends GroovyChainAction {
                             }
                         }
                     } else {
-                        render400BadRequest(context)
+                        render400BadRequest(context, "product id must be a number")
                     }
                 }
                 put {
                     String productId = pathTokens.get('id').trim()
                     if (isValidId(productId)) {
-                        context.parse(Product).then { product ->
+                        context.parse(Product).onError {
+                            render400BadRequest(context, "body must contain valid product fields")
+                        }.then { product ->
                             productCollection.updatePrice(productId, product?.price)
                             context.response.status(200)
                             context.render(json([message: "update price successfully"]))
                         }
                     } else {
-                        render400BadRequest(context)
+                        render400BadRequest(context, "product id must be a number")
                     }
                 }
             }
@@ -67,9 +70,9 @@ class ProductResource extends GroovyChainAction {
         context.render(json([message: "product not found"]))
     }
 
-    static void render400BadRequest(Context context) {
+    static void render400BadRequest(Context context, String message) {
         context.response.status(400)
-        context.render(json([message: "product id must be a number"]))
+        context.render(json([message: message]))
     }
 
     static Boolean isValidId(String productId) {
