@@ -28,7 +28,7 @@ class ProductResource extends GroovyChainAction {
         path(':id?') {
             byMethod {
                 get {
-                    String productId = pathTokens.get('id')
+                    String productId = pathTokens.get('id').trim()
                     productHttpService.getProductName(productId).then { name ->
                         Product product = productCollection.getProduct(productId)
                         product.putAt("name", name)
@@ -37,5 +37,10 @@ class ProductResource extends GroovyChainAction {
                 }
             }
         }
+    }
+
+    static Boolean isValidId(String productId) {
+        def regEx = /^[0-9]+$/
+        productId?.matches(regEx)
     }
 }

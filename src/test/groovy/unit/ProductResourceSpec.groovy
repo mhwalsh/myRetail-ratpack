@@ -1,13 +1,22 @@
 package unit
 
-import services.ProductHttpService
+import resources.ProductResource
+import spock.lang.Specification
 
-class ProductResourceSpec {
+class ProductResourceSpec extends Specification {
 
-    ProductHttpService mockProdService = Mock(ProductHttpService)
+    def 'test isValidId - #description'() {
+        when:
+        def result = ProductResource.isValidId(productId)
 
-    def ''() {
-//        given:
+        then:
+        assert result == expectedResult
 
+        where:
+        description          | productId      | expectedResult
+        'valid number'       | "1234"         | true
+        'not a number'       | "not a number" | false
+        'special chars'      | "1234/%w)"     | false
+        'leading whitespace' | " 1234"        | false
     }
 }

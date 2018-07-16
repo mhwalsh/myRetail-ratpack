@@ -52,7 +52,9 @@ class ProductResourceFunctionalSpec extends Specification {
         cleanUpProductDb()
 
         where:
-        description        | productId  | expectedStatusCode | expectedResponse
-        'valid product id' | '52474823' | 200                | [productId: "52474823", name: "Men's Jefferson Loafer Dress Shoe - Goodfellow & Co&#153; Black", price: "34.99", currencyCode: "USD"]
+        description        | productId      | expectedStatusCode | expectedResponse
+//        'valid product id' | '52474823'     | 200                | [productId: "52474823", name: "Men's Jefferson Loafer Dress Shoe - Goodfellow & Co&#153; Black", price: "34.99", currencyCode: "USD"]
+        'id non numeric'       | 'not a number' | 400                | [message: "product id must be a number"]
+        // id not in db
     }
 }
