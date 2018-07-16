@@ -15,7 +15,7 @@ This project depends on a [mongoDB](https://www.mongodb.com/). Install this data
 Run the following command inside the project directory to install project dependencies:
 
 ```
-$ ./gradlew build
+$ ./gradlew assemble
 ```
 
 To start the server run:
@@ -27,7 +27,7 @@ $ ./gradlew run
 Add some initial test data to the database by running the following command:
 
 ```
-$ groovy <projectLocation>/utils/InitDbSetUp.groovy
+$ groovy <projectLocation>/src/test/InitDbSetUp.groovy
 ```
 The server does not need to be up to execute this script. If database doesn't exist it will be created. If database does exist and contains data, the data will be dropped and regenerated.
 
