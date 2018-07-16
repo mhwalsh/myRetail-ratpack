@@ -23,9 +23,15 @@ class ProductHttpService {
      * @return
      */
     Promise<Object> getProductName(String productId) {
+        JsonSlurper jsonSlurper = new JsonSlurper()
+
         httpClient.get(uri.concat("${productId}").toURI()).flatMap { httpResponse ->
-            JsonSlurper jsonSlurper = new JsonSlurper()
-            Promise.value(jsonSlurper.parseText(httpResponse.body.text).product.item.product_description.title)
+            def name = jsonSlurper.parseText(httpResponse.body.text)?.product?.item?.product_description?.title
+            if (name) {
+                Promise.value(name)
+            } else {
+                throw new RuntimeException("no redsky item found")
+            }
         }
     }
 }

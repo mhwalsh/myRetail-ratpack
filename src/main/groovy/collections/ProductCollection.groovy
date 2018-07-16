@@ -24,8 +24,12 @@ class ProductCollection {
      * @return Product domain object
      */
     Product getProduct(String id) {
-        Map prodMap = getProductDB().products.findOne(productId: id).toMap()
-        new Product(productId: prodMap.productId, name: null, price: prodMap.price, currencyCode: prodMap.currencyCode)
+        Map prodMap = getProductDB().products.findOne(productId: id)?.toMap()
+        if (prodMap) {
+            new Product(productId: prodMap?.productId, name: null, price: prodMap?.price, currencyCode: prodMap?.currencyCode)
+        } else {
+            null
+        }
     }
 
     def insertProduct(Map product) {
